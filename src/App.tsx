@@ -22,12 +22,14 @@ function App() {
         
         {isAR ? (
           <>
-            <ARButton 
-              sessionInit={{
-                requiredFeatures: ['hit-test', 'local-floor'],
-                domOverlay: { root: document.body }
-              }}
-            />
+           <ARButton 
+  className="ar-button"
+    sessionInit={{
+    requiredFeatures: ['hit-test', 'local-floor'],
+    domOverlay: { root: document.body }
+  }}
+/>
+
             <Canvas>
               <XR referenceSpace="local-floor">
                 <Controllers />
