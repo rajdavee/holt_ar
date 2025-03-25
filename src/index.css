@@ -60,3 +60,29 @@ body {
 [class*="ARButton"]:hover, .ARButton:hover {
   background: #ff1f1f !important;
 }
+
+button[class*="ARButton"],
+[aria-label="Enter AR"],
+[aria-label="AR"] {
+  position: absolute !important;
+  bottom: 24px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  padding: 12px 24px !important;
+  border: none !important;
+  border-radius: 8px !important;
+  background: #FF3B30 !important;
+  color: white !important;
+  font: 16px sans-serif !important;
+  font-weight: 500 !important;
+  outline: none !important;
+  z-index: 99999 !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+button[class*="ARButton"]:hover,
+[aria-label="Enter AR"]:hover,
+[aria-label="AR"]:hover {
+  background: #ff1f1f !important;
+}
