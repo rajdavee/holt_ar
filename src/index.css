@@ -37,32 +37,26 @@ body {
   cursor: pointer;
 }
 
-/* AR Button styles */
-[class*="ARButton"] {
-  background-color: #FF3B30 !important;
-  border: none !important;
-  border-radius: 6px !important;
-  color: white !important;
-  font-weight: bold !important;
-  padding: 12px 24px !important;
-  position: fixed !important;
-  bottom: 20px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: 1000 !important;
-  cursor: pointer !important;
-}
-
-[class*="ARButton"]:hover {
-  opacity: 0.9 !important;
-}
-
-[class*="ARButton"]:active {
-  opacity: 0.7 !important;
-}
-
 @media (hover: none) {
   .view-button:active {
     opacity: 0.8;
   }
+}
+
+/* WebXR AR Button styles */
+:root {
+  --webxr-ar-button: #FF3B30 !important;
+}
+
+[class*="ARButton"], .ARButton {
+  background: var(--webxr-ar-button) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 12px 24px !important;
+  font-weight: bold !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+[class*="ARButton"]:hover, .ARButton:hover {
+  background: #ff1f1f !important;
 }
