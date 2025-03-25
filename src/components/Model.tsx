@@ -1,7 +1,22 @@
 import { useGLTF } from '@react-three/drei'
+import { GroupProps } from '@react-three/fiber'
+import { GLTF } from 'three-stdlib'
 
-export function Model(props) {
-  const { nodes, materials } = useGLTF('/microfridge.glb')
+type GLTFResult = GLTF & {
+  nodes: {
+    wood: THREE.Mesh
+    color: THREE.Mesh
+    black: THREE.Mesh
+  }
+  materials: {
+    wood: THREE.Material
+    color: THREE.Material
+    black: THREE.Material
+  }
+}
+
+export function Model(props: GroupProps) {
+  const { nodes, materials } = useGLTF('/microfridge.glb') as GLTFResult
   return (
     <group {...props} dispose={null}>
       <mesh

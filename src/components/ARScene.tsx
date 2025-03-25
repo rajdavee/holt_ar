@@ -1,20 +1,21 @@
-import { Interactive, useHitTest, useXR } from '@react-three/xr'
+import { Interactive, useHitTest } from '@react-three/xr'
 import { useState } from 'react'
 import { Model } from './Model'
 import * as THREE from 'three'
 
 const ARScene = () => {
   const [placed, setPlaced] = useState(false)
-  const [position, setPosition] = useState([0, 0, -1])
+  const [position, setPosition] = useState<[number, number, number]>([0, 0, -1])
 
   useHitTest((hitMatrix) => {
     if (!placed) {
+      const pos = new THREE.Vector3()
       hitMatrix.decompose(
-        new THREE.Vector3(),
+        pos,
         new THREE.Quaternion(),
         new THREE.Vector3()
       )
-      setPosition([hitMatrix.elements[12], hitMatrix.elements[13], hitMatrix.elements[14]])
+      setPosition([pos.x, pos.y, pos.z])
     }
   })
 
