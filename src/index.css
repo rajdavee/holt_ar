@@ -8,11 +8,19 @@ body {
   overflow: hidden;
 }
 
-.view-button {
+.button-container {
   position: fixed;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.view-button {
+  position: static;
+  transform: none;
   padding: 12px 24px;
   background: #007AFF;
   color: white;
@@ -22,6 +30,21 @@ body {
   font-weight: 500;
   z-index: 1000;
   cursor: pointer;
+}
+
+.qr-button {
+  padding: 12px 24px;
+  background: #34C759;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.qr-button:hover {
+  background: #2fb350;
 }
 
 .close-button {
@@ -36,18 +59,20 @@ body {
   z-index: 1000;
   cursor: pointer;
 }
-.ar-button{
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 8px 16px;
-    background: #FF3B30 !important;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    z-index: 1000;
-    cursor: pointer; 
+
+.ar-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  background: #FF3B30 !important;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  z-index: 1000;
+  cursor: pointer;
 }
+
 @media (hover: none) {
   .view-button:active {
     opacity: 0.8;
@@ -96,4 +121,49 @@ button[class*="ARButton"]:hover,
 [aria-label="Enter AR"]:hover,
 [aria-label="AR"]:hover {
   background: #ff1f1f !important;
+}
+
+.qr-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.qr-container {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.qr-image {
+  width: min(500px, 80vw);
+  height: min(500px, 80vw);
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+.qr-text {
+  color: #333;
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.qr-close {
+  color: #666;
+  font-size: 16px;
 }
