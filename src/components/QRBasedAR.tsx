@@ -1,7 +1,12 @@
 import { useEffect, useRef } from "react";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import '@hiukim/mind-ar-js';
+
+declare global {
+  interface Window {
+    MindARThree: any;
+  }
+}
 
 const QRBasedAR = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -11,7 +16,7 @@ const QRBasedAR = () => {
 
     const mindarThree = new window.MindARThree({
       container: containerRef.current,
-      imageTargetSrc: '/targets.mind',
+      imageTargetSrc: '/targets.mind'
     });
 
     const { renderer, scene, camera } = mindarThree;
