@@ -23,7 +23,6 @@ function App() {
   }, [])
 
   const currentURL = window.location.href.split('?')[0]
-  const arExperienceURL = `${currentURL}?ar=true`
   const qrARExperienceURL = `${currentURL}?qrar=true`
 
   if (isQRAR) {

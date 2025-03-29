@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 declare global {
   interface Window {
@@ -19,10 +19,10 @@ const QRBasedAR = () => {
       imageTargetSrc: '/targets.mind'
     });
 
-    const { renderer, scene, camera } = mindarThree;
+    const { scene } = mindarThree;
 
     const loader = new GLTFLoader();
-    loader.load('/aqua.glb', (gltf) => {
+    loader.load('/aqua.glb', (gltf: GLTF) => {
       const model = gltf.scene;
       model.scale.set(0.5, 0.5, 0.5);
       model.position.set(0, 0, 0);
