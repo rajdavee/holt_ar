@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import 'mind-ar-js';
+import '@hiukim/mind-ar-js';
 
 const QRBasedAR = () => {
   const containerRef = useRef<HTMLDivElement>(null);
