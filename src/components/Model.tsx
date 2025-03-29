@@ -26,7 +26,7 @@ function LoadingBox() {
 }
 
 export function Model(props: GroupProps) {
-  const gltf = useGLTF('/microfridge.glb')
+  const gltf = useGLTF('/aqua.glb')
   
   useEffect(() => {
     console.log('GLTF Load result:', gltf)
@@ -53,4 +53,4 @@ export function Model(props: GroupProps) {
   }
 }
 
-useGLTF.preload('/microfridge.glb')
+useGLTF.preload('/aqua.glb')
