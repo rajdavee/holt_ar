@@ -4,6 +4,7 @@ import Scene from './components/Scene'
 import ARScene from './components/ARScene'
 import ErrorBoundary from './components/ErrorBoundary'
 import { useState, useEffect } from 'react'
+import { QRCode } from 'qrcode.react'
 
 function App() {
   const [isAR, setIsAR] = useState(false)
@@ -26,10 +27,13 @@ function App() {
         {showQR && (
           <div className="qr-overlay" onClick={() => setShowQR(false)}>
             <div className="qr-container">
-              <img 
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(arExperienceURL)}`}
-                alt="AR Experience QR Code"
+              <QRCode
+                value={arExperienceURL}
+                size={256}
+                level="H"
                 className="qr-image"
+                includeMargin={true}
+                style={{ width: 'min(500px, 80vw)', height: 'min(500px, 80vw)' }}
               />
               <p className="qr-text">Scan to open AR experience</p>
               <p className="qr-close">Tap anywhere to close</p>
