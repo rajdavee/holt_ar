@@ -43,8 +43,6 @@ export function Model(props: GroupProps) {
     return (
       <Suspense fallback={<LoadingBox />}>
         <group {...props} dispose={null}>
-          <ambientLight intensity={1} />
-          <pointLight position={[10, 10, 10]} intensity={1} color="white" />
           <primitive object={gltf.scene} />
         </group>
       </Suspense>
