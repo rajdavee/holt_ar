@@ -1,6 +1,7 @@
 import { useGLTF } from '@react-three/drei'
 import { GroupProps } from '@react-three/fiber'
 import { GLTF } from 'three-stdlib'
+import { Suspense, useEffect } from 'react'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -15,33 +16,41 @@ type GLTFResult = GLTF & {
   }
 }
 
-export function Model(props: GroupProps) {
-  const { nodes, materials } = useGLTF('/microfridge.glb') as GLTFResult
+function LoadingBox() {
   return (
-    <group {...props} dispose={null}>
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.wood.geometry}
-        material={materials.wood}
-        position={[0.2, 0.497, -0.069]}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.color.geometry}
-        material={materials.color}
-        position={[0.2, 0.497, -0.069]}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.black.geometry}
-        material={materials.black}
-        position={[0.2, 0.497, -0.069]}
-      />
-    </group>
+    <mesh>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color="hotpink" />
+    </mesh>
   )
+}
+
+export function Model(props: GroupProps) {
+  const gltf = useGLTF('/microfridge.glb')
+  
+  useEffect(() => {
+    console.log('GLTF Load result:', gltf)
+  }, [gltf])
+
+  try {
+    const { nodes, materials } = gltf as GLTFResult
+    
+    if (!nodes || !materials) {
+      console.error('Model data is incomplete:', { nodes, materials })
+      return <LoadingBox />
+    }
+
+    return (
+      <Suspense fallback={<LoadingBox />}>
+        <group {...props} dispose={null}>
+          <primitive object={gltf.scene} />
+        </group>
+      </Suspense>
+    )
+  } catch (error) {
+    console.error('Error in Model component:', error)
+    return <LoadingBox />
+  }
 }
 
 useGLTF.preload('/microfridge.glb')
