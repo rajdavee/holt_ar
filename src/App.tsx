@@ -4,7 +4,7 @@ import Scene from './components/Scene'
 import ARScene from './components/ARScene'
 import ErrorBoundary from './components/ErrorBoundary'
 import { useState, useEffect } from 'react'
-import { QRCode } from 'qrcode.react'
+import QRCode from 'qrcode.react'
 
 function App() {
   const [isAR, setIsAR] = useState(false)
