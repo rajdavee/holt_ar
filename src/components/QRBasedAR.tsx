@@ -1,13 +1,21 @@
-import { MindARViewer } from "@mind-ar/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import 'mind-ar-js';
 
 const QRBasedAR = () => {
-  const sceneRef = useRef<THREE.Scene>();
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    if (!containerRef.current) return;
 
-  const onSceneReady = (scene: THREE.Scene) => {
-    sceneRef.current = scene;
+    const mindarThree = new window.MindARThree({
+      container: containerRef.current,
+      imageTargetSrc: '/targets.mind',
+    });
+
+    const { renderer, scene, camera } = mindarThree;
+
     const loader = new GLTFLoader();
     loader.load('/aqua.glb', (gltf) => {
       const model = gltf.scene;
@@ -15,16 +23,16 @@ const QRBasedAR = () => {
       model.position.set(0, 0, 0);
       scene.add(model);
     });
-  };
+
+    mindarThree.start();
+
+    return () => {
+      mindarThree.stop();
+    };
+  }, []);
 
   return (
-    <MindARViewer
-      imageTargetSrc="/targets.mind"
-      maxTrack={1}
-      filterMinCF={1}
-      filterBeta={1000}
-      onSceneReady={onSceneReady}
-    />
+    <div ref={containerRef} style={{ width: '100vw', height: '100vh' }} />
   );
 };
 
