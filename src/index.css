@@ -62,7 +62,7 @@ body {
 [class*="ARButton"], .ARButton {
   background: var(--webxr-ar-button) !important;
   border: none !important;
-  border-radius: 8px !important;
+  border-radius: 7px !important;
   padding: 12px 24px !important;
   font-weight: bold !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
