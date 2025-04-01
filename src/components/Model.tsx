@@ -1,7 +1,8 @@
 import { useGLTF } from '@react-three/drei'
-import { GroupProps } from '@react-three/fiber'
+import { GroupProps, useFrame } from '@react-three/fiber'
 import { GLTF } from 'three-stdlib'
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
+import * as THREE from 'three'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -27,10 +28,37 @@ function LoadingBox() {
 
 export function Model(props: GroupProps) {
   const gltf = useGLTF('/aqua.glb')
+  const groupRef = useRef<THREE.Group>(null)
   
   useEffect(() => {
     console.log('GLTF Load result:', gltf)
+    
+    // Ensure all materials are configured to receive light
+    if (gltf.scene) {
+      gltf.scene.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          // Force materials to be receptive to lighting
+          child.material.needsUpdate = true;
+          
+          // For meshes with standard materials
+          if (child.material.type.includes('Standard') || child.material.type.includes('Physical')) {
+            child.castShadow = true;
+            child.receiveShadow = true;
+          }
+          
+          console.log('Configured mesh:', child.name, 'with material:', child.material.type);
+        }
+      });
+    }
   }, [gltf])
+
+  // Animation to help debug visibility
+  useFrame((state) => {
+    if (groupRef.current) {
+      // Subtle rotation to help see if model is rendering/updating
+      groupRef.current.rotation.y = state.clock.getElapsedTime() * 0.1;
+    }
+  })
 
   try {
     const { nodes, materials } = gltf as GLTFResult
@@ -42,7 +70,7 @@ export function Model(props: GroupProps) {
 
     return (
       <Suspense fallback={<LoadingBox />}>
-        <group {...props} dispose={null}>
+        <group ref={groupRef} {...props} dispose={null}>
           <primitive object={gltf.scene} />
         </group>
       </Suspense>
