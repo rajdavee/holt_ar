@@ -1,6 +1,10 @@
 import { Environment, OrbitControls } from '@react-three/drei'
 import { Model } from './Model'
 
+const FEET_TO_METERS = 0.3048
+const HEIGHT_IN_FEET = 3.5
+const MODEL_SCALE = HEIGHT_IN_FEET * FEET_TO_METERS
+
 interface SceneProps {
   isAR: boolean
 }
@@ -27,7 +31,7 @@ const Scene = ({ isAR }: SceneProps) => {
         intensity={0.4}
         castShadow={false}
       />
-      <Model />
+      <Model scale={[MODEL_SCALE, MODEL_SCALE, MODEL_SCALE]} />
     </>
   )
 }
