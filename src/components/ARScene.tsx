@@ -2,10 +2,7 @@ import { Interactive, useHitTest } from '@react-three/xr'
 import { useState } from 'react'
 import { Model } from './Model'
 import * as THREE from 'three'
-
-const FEET_TO_METERS = 0.3048
-const HEIGHT_IN_FEET = 3.5
-const MODEL_SCALE = HEIGHT_IN_FEET * FEET_TO_METERS
+import { MODEL_SCALE } from '../constants'
 
 const ARScene = () => {
   const [placed, setPlaced] = useState(false)
@@ -25,19 +22,8 @@ const ARScene = () => {
 
   return (
     <>
-      <ambientLight intensity={0.8} />
-      <hemisphereLight intensity={0.5} groundColor="#555555" />
-      <directionalLight
-        position={[5, 5, 5]}
-        intensity={0.8}
-        castShadow
-        shadow-mapSize={[1024, 1024]}
-      />
-      <directionalLight
-        position={[-5, 5, -5]}
-        intensity={0.4}
-        castShadow={false}
-      />
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[10, 10, 5]} castShadow />
       <Interactive onSelect={() => setPlaced(true)}>
         <group position={position}>
           {!placed ? (
