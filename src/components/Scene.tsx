@@ -14,8 +14,19 @@ const Scene = ({ isAR }: SceneProps) => {
           <Environment preset="apartment" />
         </>
       )}
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[10, 10, 5]} castShadow />
+      <ambientLight intensity={0.8} />
+      <hemisphereLight intensity={0.5} groundColor="#555555" />
+      <directionalLight
+        position={[5, 5, 5]}
+        intensity={0.8}
+        castShadow
+        shadow-mapSize={[1024, 1024]}
+      />
+      <directionalLight
+        position={[-5, 5, -5]}
+        intensity={0.4}
+        castShadow={false}
+      />
       <Model />
     </>
   )
